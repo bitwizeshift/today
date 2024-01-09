@@ -1,0 +1,121 @@
+name: Update for today's date
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  issue:
+    name: Create issue
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get time
+        id: time
+        run: |
+          echo "actual=$(cat today)" >> "${GITHUB_OUTPUT}"
+          echo expect=$(TZ=America/New_York date +"%Y-%m-%d") >> "${GITHUB_OUTPUT}"
+
+      - name: Create issue
+        id: issue
+        if: steps.time.outputs.actual != steps.time.outputs.expect
+        uses: bitwizeshift/actions-github/issues/create@master
+        with:
+          github-token: ${{ secrets.GH_USER_TOKEN }}
+          title: "Bug: The date is wrong"
+          body: |
+            **Please describe the issue in depth**
+
+            Today's date is actually ${{ steps.time.outputs.expect }}, but 'today'
+            currently contains the date ${{ steps.time.outputs.actual }}
+
+            ## What did you expect to see?
+
+            The date in 'today' should show ${{ steps.time.outputs.expect }}.
+
+            ## What did you actually see?
+
+            The date in 'today' actually shows ${{ steps.time.outputs.actual }}
+
+            ## Affected systems
+
+            * [x] macOS
+            * [x] Windows
+            * [x] Chrome OS
+            * [x] Palm Pilot
+            * [x] Linux
+
+            ## Any additional details?
+
+            N/A
+
+      - name: Fix the date
+        if: steps.time.outputs.actual != steps.time.outputs.expect
+        run: TZ=America/New_York date +"%Y-%m-%d" > today
+
+      - name: Create branch
+        if: steps.time.outputs.actual != steps.time.outputs.expect
+        uses: bitwizeshift/actions-github/git/create-branch@master
+        with:
+          branch: fix/todays-date-${{ steps.time.outputs.expect }}
+          checkout: true
+
+      - name: Add change
+        if: steps.time.outputs.actual != steps.time.outputs.expect
+        uses: bitwizeshift/actions-github/git/add@master
+        with:
+          path: today
+
+      - name: Commit
+        if: steps.time.outputs.actual != steps.time.outputs.expect
+        uses: bitwizeshift/actions-github/git/commit@master
+        with:
+          title: Fix outdated date for today file
+          body: |
+            The date in "today" represents some other date that is not today,
+            which is absolutely crazy. This fixes the issue by updating the
+            date to "${{ steps.time.outputs.expect }}".
+          user-name: bitwizeshift
+          user-email: 7519129+bitwizeshift@users.noreply.github.com
+
+      - name: Push Branch
+        if: steps.time.outputs.actual != steps.time.outputs.expect
+        uses: bitwizeshift/actions-github/git/push@master
+        with:
+          branch: fix/todays-date-${{ steps.time.outputs.expect }}
+
+      - name: Create pull request
+        if: steps.time.outputs.actual != steps.time.outputs.expect
+        id: pull
+        uses: bitwizeshift/actions-github/pulls/create@master
+        with:
+          github-token: ${{ secrets.GH_USER_TOKEN }}
+          assignees: bitwizeshift
+          labels: bugfix
+          head: fix/todays-date-${{ steps.time.outputs.expect }}
+          base: master
+          title: Fix outdated date for 'today'
+          body: |
+            The date in 'today' represents some other date that isn't today,
+            which is absolutely crazy. This fixes the issue by updating the
+            date to `${{ steps.time.outputs.expect }}`.
+
+            **Testing steps:**
+
+            * [x] Consulted the calendar hanging on my fridge
+
+            Fixes: #${{ steps.issue.outputs.issue-number }}
+
+      - name: Merge pull request
+        if: steps.time.outputs.actual != steps.time.outputs.expect
+        uses: bitwizeshift/actions-github/pulls/merge@master
+        with:
+          github-token: ${{ secrets.GH_USER_TOKEN }}
+          pull-number: ${{ steps.pull.outputs.pull-number }}
+
