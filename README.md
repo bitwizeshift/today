@@ -1,14 +1,26 @@
-# What is today's date?
+# ![Today]
 
-This groundbreaking repository finally answers the day-old question:
-"What day is it today?". Finally, no more questions. Just clone this repository,
-and `cat` the file `today` to get today's date. Easy!
+Are you tired of having to manually keep track of what day it is? Have you
+ever just stopped counting on your fingers and thought, *there must be a better
+way?*
+
+Seek no further; your prayers have been answered.
+
+Using `today`'s [ground-breaking] [and] [proprietary] [technology], this repository
+finally answers the day-old question: "What day is it today?" Stop making your
+life miserable, and use `today` _TODAY_.
+
+[ground-breaking]: docs/images/technical/diagram-4.jpg
+[and]: docs/images/technical/chart-17b.jpg
+[proprietary]: docs/images/technical/chart-0.30000000000000004.jpg
+[technology]: docs/images/technical/appendix-c.jpg
+[Today]: docs/images/today-banner.png "What day is Today?"
 
 ## 🚀 Features
 
 * [x] Simple and easy to use!
 * [x] Usually accurate in at least one time zone!
-* [x] Regular releases!
+* [x] Regular releases never miss a day!
 * [ ] Never forget what day it is! (incubating feature 🚧)
 * [ ] Time zone aware! (some day 🤔)
 * [x] Available under the [most permissive license](LICENSE)!
