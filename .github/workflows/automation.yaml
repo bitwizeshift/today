@@ -21,6 +21,8 @@ jobs:
         run: |
           echo "actual=$(cat today)" >> "${GITHUB_OUTPUT}"
           echo expect=$(TZ=America/New_York date +"%Y-%m-%d") >> "${GITHUB_OUTPUT}"
+          echo tag=$(TZ=America/New_York date +"%Y.%m.%d") >> "${GITHUB_OUTPUT}"
+          echo human-date=$(TZ=America/New_York date +"%A %B %d, %Y") >> "${GITHUB_OUTPUT}"
 
       - name: Create issue
         id: issue
@@ -119,3 +121,35 @@ jobs:
           github-token: ${{ secrets.GH_USER_TOKEN }}
           pull-number: ${{ steps.pull.outputs.pull-number }}
 
+      - name: Delete branch
+        if: steps.time.outputs.actual != steps.time.outputs.expect
+        uses: bitwizeshift/actions-github/git/delete-branch@master
+        with:
+          branch: fix/todays-date-${{ steps.time.outputs.expect }}
+
+      - name: Create release
+        if: steps.time.outputs.actual != steps.time.outputs.expect
+        id: release
+        uses: bitwizeshift/actions-github/releases/create@master
+        with:
+          github-token: ${{ secrets.GH_USER_TOKEN }}
+          tag-name: v${{ steps.time.outputs.tag }}
+          name: "${{ steps.time.outputs.tag }}: The ${{ steps.time.outputs.human-date }} update"
+          body: |
+            # Release v${{ steps.time.outputs.tag }}
+
+            🎉 I am proud to anounce version ${{ steps.time.outputs.tag }} for
+            'today'. This marks almost 24-hours of hard work and painstaking
+            automation.
+
+            ## Change Log
+
+            * Updated 'today' to represent ${{ steps.time.outputs.human-date }}
+          target-commitish: master
+
+      - name: Attach today to release
+        uses: ./releases/upload-asset
+        with:
+          release-id: ${{ steps.release.outputs.release-id }}
+          path: today
+          name: today
