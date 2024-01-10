@@ -24,23 +24,18 @@ and `cat` the file `today` to get today's date. Easy!
 * [💼 License](#license) \
   Information about the licensing for this project
 
-## License
-
-This project aims to be as permissive *as humanly possible*, thus this is
-[licensed under GPLv3](LICENSE) 😉
-
 ## Corporate Sponsors
 
 I'd like to thank the following corporate overlords for sponsoring this project:
 
-![Microhard] ![Go Papi Hosting]
+![Microhard][microhard] ![Go Papi Hosting][gopapi]
 
-![Dull computers] ![Yarp] ![McFee] ![Froogle]
+![Dull computers][dull] ![Yarp][Yarp] ![McFee][McFee] ![Froogle][Froogle]
 
 [Microhard]: docs/images/sponsors/corporate/microhard-250x250.png "Microhard"
-[Go Papi Hosting]: docs/images/sponsors/corporate/go-pappy-250x250.png "Go Papi Web Hosting"
+[gopapi]: docs/images/sponsors/corporate/go-pappy-250x250.png "Go Papi Web Hosting"
 
-[Dull computers]: docs/images/sponsors/corporate/dull-250x64.png
+[dull]: docs/images/sponsors/corporate/dull-250x64.png
 [Yarp]: docs/images/sponsors/corporate/yarp-250x138.png "Yarp"
 [Froogle]: docs/images/sponsors/corporate/froogle-250x110.png "Froogle"
 [McFee]: docs/images/sponsors/corporate/mcfee-250x125.png "McFee"
@@ -49,9 +44,9 @@ I'd like to thank the following corporate overlords for sponsoring this project:
 
 You can be one as well through [Github Sponsors](https://github.com/sponsors/bitwizeshift)!
 
-![snog] ![user-1] ![user-2] ![user-3] ![user-4] ![user-5] ![user-6] ![user-7]
-![user-8] ![avatar] ![user-9] ![user-10] ![user-11] ![user-12] ![user-13] ![user-14]
-![user-15] ![user-16] ![user-17] ![user-18] ![bitwizeshift]  ![user-19] ![user-20]
+![snog][snog] ![user-1] ![user-2] ![user-3] ![user-4] ![user-5] ![user-6] ![user-7]
+![user-8] ![avatar][avatar] ![user-9] ![user-10] ![user-11] ![user-12] ![user-13] ![user-14]
+![user-15] ![user-16] ![user-17] ![user-18] ![bitwizeshift][bitwizeshift]  ![user-19] ![user-20]
 
 [user-1]: https://www.gravatar.com/avatar/94d093eda664addd6e450d7e9881bcad?s=100&d=identicon
 [user-2]: https://www.gravatar.com/avatar/15fb45d396964013d16276442a1741d585615082?s=100&d=identicon
@@ -76,3 +71,8 @@ You can be one as well through [Github Sponsors](https://github.com/sponsors/bit
 [snog]: docs/images/sponsors/personal/snog-100x100.png "Snog"
 [avatar]: docs/images/sponsors/personal/avatar-100x100.png "Mr Avatar"
 [bitwizeshift]: https://github.com/bitwizeshift.png?size=100 "@bitwizeshift"
+
+## License
+
+This project aims to be as permissive *as humanly possible*, thus this is
+[licensed under GPLv3](LICENSE) 😉
